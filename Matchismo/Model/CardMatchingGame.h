@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "Deck.h"
 
-@protocol ViewControllerDelegate <NSObject>
-@required
-- (void)displayChanges:(NSArray*) chosenCards :(BOOL)didMatch :(NSInteger)pointsDifference;
-@end
 
 @interface CardMatchingGame : NSObject
 // designated initializer
@@ -25,7 +21,6 @@
 @property (nonatomic,readonly) NSInteger score;
 
 @property (nonatomic) NSUInteger matchMode ;
-@property (nonatomic,weak,nullable) NSObject <ViewControllerDelegate> *viewControllerDelegate;
 
 @end
 
