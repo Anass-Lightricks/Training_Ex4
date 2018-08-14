@@ -20,8 +20,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="jDz-7F-5GE" kind="relationship" relationship="viewControllers" id="hdk-V4-gsl"/>
-                        <segue destination="1Y4-cu-lVq" kind="relationship" relationship="viewControllers" id="a6t-4t-ABJ"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="ED6-Dl-Dj7"/>
+                        <segue destination="n8A-AT-pkt" kind="relationship" relationship="viewControllers" id="7Bt-b7-JYO"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r86-vp-dVV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -53,13 +53,6 @@
                                     <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xbf-rp-Ui0"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3PY-eJ-q3P">
-                                <rect key="frame" x="24" y="414" width="280" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gzi-BU-wRh">
                                 <rect key="frame" x="212" y="80" width="40" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -365,15 +358,9 @@
                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Playing Card Game" id="QU1-HS-Cab">
-                        <barButtonItem key="rightBarButtonItem" title="History" id="H9l-lw-V4U">
-                            <connections>
-                                <segue destination="9da-Ym-tzj" kind="push" identifier="playingCardHistory" id="YRA-eS-JeB"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <tabBarItem key="tabBarItem" title="Playing Card Game" id="qCc-eb-UXH"/>
+                    <navigationItem key="navigationItem" title="Playing Card Game" id="QU1-HS-Cab"/>
                     <connections>
-                        <outlet property="lastMoveLabel" destination="3PY-eJ-q3P" id="l7M-vL-5by"/>
                         <outlet property="scoreLabel" destination="HJz-ys-HzN" id="Ile-pd-67T"/>
                         <outletCollection property="cardButtons" destination="FXZ-76-WvL" id="0By-cb-yk5"/>
                         <outletCollection property="cardButtons" destination="Gzi-BU-wRh" id="bnl-BT-YsS"/>
@@ -497,12 +484,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQt-Ir-jc0">
-                                <rect key="frame" x="20" y="410" width="280" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <attributedString key="attributedText"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ky-v8-wXL">
                                 <rect key="frame" x="236" y="306" width="64" height="96"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -550,15 +531,9 @@
                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="5di-pj-Npd"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Set Card Game" id="8qA-kw-nsi">
-                        <barButtonItem key="rightBarButtonItem" title="History" id="UJV-aa-S9M">
-                            <connections>
-                                <segue destination="9da-Ym-tzj" kind="push" identifier="setCardHistory" id="QiK-Ty-zVB"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <tabBarItem key="tabBarItem" title="Set Game" id="68E-AG-z9n"/>
+                    <navigationItem key="navigationItem" title="Set Card Game" id="8qA-kw-nsi"/>
                     <connections>
-                        <outlet property="lastMoveLabel" destination="OQt-Ir-jc0" id="pyp-8w-1RN"/>
                         <outlet property="scoreLabel" destination="UHa-tJ-s4c" id="QDK-EX-RG6"/>
                         <outletCollection property="cardButtons" destination="qTu-q6-eBU" id="CZG-7u-f9J"/>
                         <outletCollection property="cardButtons" destination="UI1-Y9-M7g" id="viT-eL-eWg"/>
@@ -578,85 +553,9 @@
             </objects>
             <point key="canvasLocation" x="2017.5" y="384.50704225352115"/>
         </scene>
-        <!--History-->
-        <scene sceneID="ghw-GY-H2S">
-            <objects>
-                <viewController title="History" id="9da-Ym-tzj" customClass="HistoryViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="XHG-eJ-cij">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6y8-xn-D9u">
-                                <rect key="frame" x="16" y="92" width="288" height="385"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <attributes>
-                                            <font key="NSFont" metaFont="system" size="14"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Acy-kW-mG7"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="History" id="dq3-kY-tu0"/>
-                    <connections>
-                        <outlet property="historyTextView" destination="6y8-xn-D9u" id="FL6-6o-eun"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jsW-0J-ZCM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3060" y="62.323943661971832"/>
-        </scene>
-        <!--Playing Cards-->
-        <scene sceneID="kUU-vx-5CH">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jDz-7F-5GE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Playing Cards" id="zJv-Be-rPJ"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="B5F-t7-oOt">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="HjJ-rD-ls8"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ijJ-sp-oCN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1020" y="-321.12676056338029"/>
-        </scene>
-        <!--Set Game-->
-        <scene sceneID="7A3-eA-0od">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1Y4-cu-lVq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Set Game" id="vwr-r6-ocI"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="idY-f8-SA4">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="n8A-AT-pkt" kind="relationship" relationship="rootViewController" id="Ffi-Mg-gfE"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8GF-oH-wdt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1020" y="384.50704225352115"/>
-        </scene>
     </scenes>
     <resources>
         <image name="cardback" width="64" height="96"/>
         <image name="cardfront" width="64" height="96"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="YRA-eS-JeB"/>
-    </inferredMetricsTieBreakers>
 </document>

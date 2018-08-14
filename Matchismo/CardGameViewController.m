@@ -9,16 +9,12 @@
 #import "CardGameViewController.h"
 #import "Deck.h"
 #import "CardMatchingGame.h"
-#import "HistoryViewController.h"
 
 @interface CardGameViewController ()
 
 
 //@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *matchModeSwitch;
-@property (weak, nonatomic) IBOutlet UILabel *lastMoveLabel;
-@property (strong,nonatomic) NSMutableAttributedString* history;
 @end
 
 
@@ -33,14 +29,9 @@
 -(CardMatchingGame *) createGame
 {
     CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    game.viewControllerDelegate =self;
     return game;
 }
 
-- (NSMutableAttributedString *)history{
-    if(!_history) _history = [[NSMutableAttributedString alloc] init];
-    return _history;
-}
 
 - (Deck *)createDeck
 {
@@ -93,12 +84,9 @@
 }
 
 
-
 - (IBAction)touchRedealButton:(UIButton *)sender {
-    [self.matchModeSwitch setEnabled:YES];
     self.game = [self createGame];
     [self updateUI];
-    self.lastMoveLabel.text = @"";
 }
 //- (IBAction)TouchMatchModeControl:(UISegmentedControl *)sender {
 //    if(sender.selectedSegmentIndex ==0)
@@ -108,54 +96,21 @@
 //        [self.game setMatchMode:3];
 //    }
 //}
-- (void)displayChanges:(NSArray*) chosenCards :(BOOL)didMatch :(NSInteger)pointsDifference
-{
-    NSMutableAttributedString *chosenText = [[NSMutableAttributedString alloc]initWithString:@"" attributes: @{}];
-    
-    for(Card *card in chosenCards){
-        [chosenText appendAttributedString:[self titleForCard:card]];
-    }
-    if(chosenCards.count < self.game.matchMode)
-    {
-        self.lastMoveLabel.attributedText = chosenText;
-    }else if(didMatch){
-        NSMutableAttributedString* attributedText = [[NSMutableAttributedString alloc] initWithString:@"Matched "];
-        [attributedText appendAttributedString:chosenText];
-        NSString *text = [NSString stringWithFormat:@" for %ld points.",(long) pointsDifference];
-        [attributedText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:text]];
-        self.lastMoveLabel.attributedText = attributedText;
-        [self appendtoHistory:attributedText];
-        
-    }
-    else{
-        NSString *text = [NSString stringWithFormat:@" don't match! %ld points penalty!",(long) -pointsDifference];
-        [chosenText appendAttributedString:[[NSMutableAttributedString alloc] initWithString:text]];
-        self.lastMoveLabel.attributedText = chosenText;
-        [self appendtoHistory:chosenText];
-        
-    }
-    self.lastMoveLabel.textAlignment = NSTextAlignmentCenter;
-}
 
--(void) appendtoHistory:(NSMutableAttributedString*) string
-{
-    [self.history appendAttributedString:string];
-    NSMutableAttributedString *enter = [[NSMutableAttributedString alloc] initWithString:@"\n"];
-    [self.history appendAttributedString: enter];
-}
+
 
 
 // #pragma mark - Navigation
 
  // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController]
-     if([segue.identifier isEqualToString:self.historySegueIdentifier]){
-         HistoryViewController* dest = (HistoryViewController*)[segue destinationViewController];
-         dest.history = self.history;
-     }
- // Pass the selected object to the new view controller.
- }
+// - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+// // Get the new view controller using [segue destinationViewController]
+//     if([segue.identifier isEqualToString:self.historySegueIdentifier]){
+//         HistoryViewController* dest = (HistoryViewController*)[segue destinationViewController];
+//         dest.history = self.history;
+//     }
+// // Pass the selected object to the new view controller.
+// }
 
 
 

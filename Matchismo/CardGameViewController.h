@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CardMatchingGame.h"
 
-@interface CardGameViewController : UIViewController <ViewControllerDelegate>
+@interface CardGameViewController : UIViewController
 
 //abstract
 - (Deck *)createDeck;
@@ -22,8 +22,6 @@
 
 @property (strong,nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-
-@property (strong,nonatomic,readonly) NSString* historySegueIdentifier;
 
 
 

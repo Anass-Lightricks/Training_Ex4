@@ -69,7 +69,6 @@ static const int DEFAULT_MATCH_MODE =2;
 
 - (void)chooseCardAtIndex:(NSUInteger)index{
     Card *card = [self cardAtIndex:index];
-    NSInteger originalScore =self.score;
     NSMutableArray * chosenCards = [[NSMutableArray alloc] init];
     for (Card *otherCard in self.cards){
         if (otherCard.isChosen && !otherCard.isMatched){
@@ -115,7 +114,6 @@ static const int DEFAULT_MATCH_MODE =2;
             card.chosen = YES;
             [chosenCards addObject:card];
         }
-        [self.viewControllerDelegate displayChanges:chosenCards :card.isMatched :self.score - originalScore +1];
     }
     
     
