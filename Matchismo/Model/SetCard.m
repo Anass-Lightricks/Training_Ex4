@@ -10,14 +10,14 @@
 
 @implementation SetCard
 
-- (NSString *)contents{
-    NSString* string = @"";
-    for(int i=0;i<self.number;i++){
-        string = [string stringByAppendingString:self.shape];
-    }
-    return string;
-    
-}
+//- (NSString *)contents{
+//    NSString* string = @"";
+//    for(int i=0;i<self.number;i++){
+//        string = [string stringByAppendingString:self.shape];
+//    }
+//    return string;
+//
+//}
 
 - (int) match: (NSArray *)otherCards
 {
@@ -34,10 +34,10 @@
     if (![SetCard areSameOrDifferent:self.color :card2.color :card3.color]){
         return score;
     }
-    if (![SetCard areSameOrDifferent:self.shape :card2.shape :card3.shape]){
+    if (![SetCard areSameOrDifferent:[NSNumber numberWithInteger:self.shape] :[NSNumber numberWithInteger:card2.shape] :[NSNumber numberWithInteger:card3.shape]]){
         return score;
     }
-    if (![SetCard areSameOrDifferent:[NSNumber numberWithDouble:self.shading] :[NSNumber numberWithDouble:card2.shading] :[NSNumber numberWithDouble:card3.shading]]){
+    if (![SetCard areSameOrDifferent:[NSNumber numberWithInteger:self.shading] :[NSNumber numberWithInteger:card2.shading] :[NSNumber numberWithInteger:card3.shading]]){
         return score;
     }
     
@@ -54,7 +54,7 @@
 
 + (NSArray *)validShapes
 {
-    return @[@"▲", @"●",@"■"];
+    return @[@0, @1,@2];
 }
 + (NSUInteger)maxNumber{
     return 3;
@@ -62,7 +62,7 @@
 
 + (NSArray *)validColors
 {
-    return @[[UIColor blueColor],[UIColor greenColor],[UIColor redColor]];
+    return @[[UIColor greenColor],[UIColor redColor],[UIColor purpleColor],];
 }
 + (NSArray *)validShadings
 {

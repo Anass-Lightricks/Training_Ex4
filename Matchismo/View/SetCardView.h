@@ -13,10 +13,10 @@
 @interface SetCardView : CardView
 
 
-@property (strong,nonatomic) NSString* shape;
+@property (nonatomic) NSUInteger shape;
 @property (nonatomic) NSUInteger  number;
 @property (strong, nonatomic) UIColor* color;
-@property (nonatomic) CGFloat shading;
+@property (nonatomic) NSUInteger shading;
 
 
 @end

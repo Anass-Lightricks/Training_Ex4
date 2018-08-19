@@ -23,11 +23,15 @@
 
 //protected
 
+@property (nonatomic) NSUInteger cardsCount;
+
 - (void) drawCardView:(CardView*) cardView atIndex:(NSUInteger) i;
+
+- (CardView*) createCardViewForCard:(Card*) card;
 
 @property (strong,nonatomic) CardMatchingGame *game;
 
-+(NSUInteger) cardsCount;
+
 
 -(CardMatchingGame *) createGame;
 

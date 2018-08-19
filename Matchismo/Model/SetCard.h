@@ -12,7 +12,7 @@
 
 @interface SetCard : Card
 
-@property (strong,nonatomic) NSString* shape;
+@property (nonatomic) NSUInteger shape;
 @property (nonatomic) NSUInteger  number;
 @property (strong, nonatomic) UIColor* color;
 @property (nonatomic) NSUInteger shading;

@@ -8,24 +8,28 @@
 
 #import "ViewController.h"
 
-#import "PlayingCardView.h"
+#import "SetCardView.h"
+#import "SetCard.h"
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet PlayingCardView *playingCardView;
+@property (weak, nonatomic) IBOutlet SetCardView *setCardView;
 
 @end
 
 @implementation ViewController
 - (IBAction)swipe:(UISwipeGestureRecognizer *)sender {
-    self.playingCardView.chosen = !self.playingCardView.chosen;
+    self.setCardView.chosen = !self.setCardView.chosen;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.playingCardView.suit = @"♥️";
-    self.playingCardView.rank = 13;
-    [self.playingCardView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.playingCardView action:@selector(pinch:)]];
+    self.setCardView.shape = 2;
+    self.setCardView.number = 3;
+    self.setCardView.color = [SetCard validColors][0];
+    self.setCardView.shading = 1;
+    
+//    [self.setCardView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.setCardView action:@selector(pinch:)]];
 }
 
 - (void)didReceiveMemoryWarning {

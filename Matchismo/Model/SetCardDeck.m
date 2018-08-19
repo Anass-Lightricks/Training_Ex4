@@ -16,14 +16,14 @@
     self = [super init];
     if (self) {
         for(NSUInteger i=1;i<=[SetCard maxNumber];i++){
-            for(NSString* shape in [SetCard validShapes]){
+            for(NSNumber* shape in [SetCard validShapes]){
                 for(UIColor* color in [SetCard validColors]){
                     for(NSNumber* shading in [SetCard validShadings]){
                         SetCard* card = [[SetCard alloc]init];
                         card.number = i;
-                        card.shape = shape;
+                        card.shape = [shape integerValue];
                         card.color = color;
-                        card.shading = [shading doubleValue];
+                        card.shading = [shading integerValue];
                         [self addCard:card];
                     }
                     

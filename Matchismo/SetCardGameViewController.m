@@ -10,7 +10,8 @@
 
 #import "SetCardDeck.h"
 #import "SetCard.h"
-#import "PlayingCardDeck.h"
+#import "SetCardView.h"
+
 
 @interface SetCardGameViewController ()
 
@@ -29,20 +30,24 @@
     return game;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-//    for(NSUInteger i=0; i< self.cardButtons.count;i++){
-//        UIButton* button = self.cardButtons[i];
-//        SetCard* card = (SetCard *)[self.game cardAtIndex:i];
-//        [[button titleLabel] setAttributedText:[self getAttributedStringforCard:card]];
-//    }
-    
-    // Do any additional setup after loading the view.
+- (CardView*) createCardViewForCard:(Card*) card{
+    SetCard * setCard = (SetCard*) card;
+    SetCardView* cardView = [[SetCardView alloc]init];
+    cardView.shape = setCard.shape;
+    cardView.number = setCard.number;
+    cardView.color = setCard.color;
+    cardView.shading = setCard.shading;
+    return cardView;
 }
+
+//- (void)viewDidLoad {
+//    [super viewDidLoad];
+//    // Do any additional setup after loading the view.
+//}
 
 -(void)updateUI
 {
-//    [super updateUI];
+    [super updateUI];
 //    for (UIButton *cardButton in self.cardViews){
 //        NSUInteger cardButtonIndex = [self.cardViews indexOfObject:cardButton];
 //        Card *card = [self.game cardAtIndex:cardButtonIndex];

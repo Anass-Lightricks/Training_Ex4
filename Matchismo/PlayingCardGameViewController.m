@@ -33,19 +33,18 @@
     return game;
 }
 
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    for(int i=0; i<[PlayingCardGameViewController cardsCount];i++){
-        PlayingCard * card =  (PlayingCard *)[self.game cardAtIndex:i];
-        PlayingCardView * cardView = [[PlayingCardView alloc] init];
-        cardView.rank = card.rank;
-        cardView.suit = card.suit;
-//        cardView.faceUp = NO;
-        [self drawCardView:cardView atIndex:i];
-    }
+- (CardView*) createCardViewForCard:(Card*) card{
+    PlayingCard * playingCard = (PlayingCard *) card;
+    PlayingCardView * cardView = [[PlayingCardView alloc] init];
+    cardView.rank = playingCard.rank;
+    cardView.suit = playingCard.suit;
+    return cardView;
 }
+
+//- (void)viewDidLoad {
+//    [super viewDidLoad];
+//    // Do any additional setup after loading the view.
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

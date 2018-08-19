@@ -24,8 +24,12 @@
 
 @implementation CardGameViewController
 
-+(NSUInteger) cardsCount{
+- (NSUInteger) cardsCount{
     return 12;
+}
+
+- (CardView *)createCardViewForCard:(Card *)card{
+    return nil;
 }
 
 -(NSMutableArray*) cardViews{
@@ -39,7 +43,7 @@
 - (void) setGridBounds{
     self.grid.size = self.gridFrame.bounds.size;
     self.grid.cellAspectRatio =  64.0/96.0;
-    self.grid.minimumNumberOfCells = [CardGameViewController cardsCount];
+    self.grid.minimumNumberOfCells = [self cardsCount];
 }
 
 - (Grid *)grid{
@@ -57,7 +61,7 @@
 
 -(CardMatchingGame *) createGame
 {
-    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardCount:[CardGameViewController cardsCount] usingDeck:[self createDeck]];
+    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardCount:[self cardsCount] usingDeck:[self createDeck]];
     return game;
 }
 
@@ -78,9 +82,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setGridBounds];
-    
-    
+
     [self updateUI];
+    for(int i=0; i<[self cardsCount];i++){
+        Card * card = [self.game cardAtIndex:i];
+        CardView * cardView = [self createCardViewForCard:card];
+        [self drawCardView:cardView atIndex:i];
+        [cardView setBackgroundColor:[UIColor clearColor]];
+        //    [cardView setUserInteractionEnabled:YES];
+        [self.cardViews addObject:cardView];
+        //    [cardView setNeedsDisplay];
+    }
+    
+    
 }
 
 
@@ -93,8 +107,6 @@
         
         cardView.chosen = card.isChosen;
         cardView.hidden = card.isMatched;
-        
-
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", (long)self.game.score];
 //    [self.view setNeedsLayout];
@@ -112,13 +124,8 @@
     NSUInteger column = i / self.grid.rowCount;
     NSUInteger row = i % self.grid.rowCount;
     [cardView setFrame:[self.grid frameOfCellAtRow:row inColumn:column]];
-
-    [cardView setBackgroundColor:[UIColor clearColor]];
     [self.gridFrame addSubview:cardView];
     [cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(tapCardView:)]];
-//    [cardView setUserInteractionEnabled:YES];
-    [self.cardViews addObject:cardView];
-//    [cardView setNeedsDisplay];
 }
 
 - (IBAction)touchRedealButton:(UIButton *)sender {
@@ -134,6 +141,15 @@
 //    }
 //}
 
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    [self setGridBounds];
+    
+    for(int i=0; i<[self.cardViews count];i++){
+        [self drawCardView:self.cardViews[i] atIndex:i];
+    }
+    
+}
 
 
 
