@@ -7,13 +7,15 @@
 //
 
 #import "Card.h"
+
 #import "UIKit/UIKit.h"
+
 @interface SetCard : Card
 
 @property (strong,nonatomic) NSString* shape;
 @property (nonatomic) NSUInteger  number;
 @property (strong, nonatomic) UIColor* color;
-@property (nonatomic) CGFloat shading;
+@property (nonatomic) NSUInteger shading;
 
 + (NSArray*) validShapes;
 + (NSUInteger) maxNumber;

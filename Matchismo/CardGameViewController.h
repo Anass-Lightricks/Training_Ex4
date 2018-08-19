@@ -7,23 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "CardMatchingGame.h"
+#import "CardView.h"
 
 @interface CardGameViewController : UIViewController
 
+
+@property (strong,nonatomic) NSMutableArray* cardViews;
+
 //abstract
 - (Deck *)createDeck;
--(NSAttributedString *) titleForCard:(Card *)card;
--(UIImage *)backgroundImageForCard:(Card *)card;
 
 -(void)updateUI;
 
 //protected
 
+- (void) drawCardView:(CardView*) cardView atIndex:(NSUInteger) i;
+
 @property (strong,nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
-
++(NSUInteger) cardsCount;
 
 -(CardMatchingGame *) createGame;
 

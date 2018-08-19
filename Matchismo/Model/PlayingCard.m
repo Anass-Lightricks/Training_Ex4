@@ -52,7 +52,8 @@
 
 +(NSArray *)validSuits
 {
-    return @[@"\u2666\uFE0F", @"\u2764\uFE0F",@"♠︎",@"♣︎"];
+    return @[@"♥️",@"♦️",@"♠️",@"♣️"];
+    //return @[@"\u2764\uFE0F", @"\u2666\uFE0F",@"♠︎",@"♣︎"];
     //return @[@"♥︎",@"♦︎",@"♠︎",@"♣︎"];
 }
 +(NSArray *)rankStrings

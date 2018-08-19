@@ -9,16 +9,45 @@
 #import "CardGameViewController.h"
 #import "Deck.h"
 #import "CardMatchingGame.h"
+#import "View/CardView.h"
+#import "Grid.h"
 
 @interface CardGameViewController ()
 
 
-//@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (strong, nonatomic) Grid* grid;
+@property (weak, nonatomic) IBOutlet UIView *gridFrame;
+
 @end
 
 
 @implementation CardGameViewController
+
++(NSUInteger) cardsCount{
+    return 12;
+}
+
+-(NSMutableArray*) cardViews{
+    if(!_cardViews){
+        _cardViews = [[NSMutableArray alloc]init];
+    }
+    return _cardViews;
+}
+
+
+- (void) setGridBounds{
+    self.grid.size = self.gridFrame.bounds.size;
+    self.grid.cellAspectRatio =  64.0/96.0;
+    self.grid.minimumNumberOfCells = [CardGameViewController cardsCount];
+}
+
+- (Grid *)grid{
+    if(!_grid){
+        _grid = [[Grid alloc] init];
+    }
+    return _grid;
+}
 
 -(CardMatchingGame *) game
 {
@@ -28,7 +57,7 @@
 
 -(CardMatchingGame *) createGame
 {
-    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardCount:[CardGameViewController cardsCount] usingDeck:[self createDeck]];
     return game;
 }
 
@@ -37,44 +66,38 @@
 {
     return nil;
 }
-
--(NSAttributedString *) titleForCard:(Card *)card
-{
-    return nil;
-}
-
--(UIImage *)backgroundImageForCard:(Card *)card
-{
-    return nil;
-}
-
-
-- (IBAction)touchCardButton:(UIButton *)sender {
-//    [self.matchModeSwitch setEnabled:NO];
-    NSUInteger chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonIndex];
+- (IBAction)tapCardView:(UITapGestureRecognizer *)sender {
+    if(![sender.view isKindOfClass:CardView.class]) return;
+    
+    NSUInteger chosenViewIndex = [self.cardViews indexOfObject:sender.view];
+    
+    [self.game chooseCardAtIndex:chosenViewIndex];
     [self updateUI];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setGridBounds];
+    
+    
     [self updateUI];
 }
+
+
 
 -(void)updateUI
 {
-    for (UIButton *cardButton in self.cardButtons){
-        NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-        Card *card = [self.game cardAtIndex:cardButtonIndex];
+    for (CardView *cardView in self.cardViews){
+        NSUInteger cardViewIndex = [self.cardViews indexOfObject:cardView];
+        Card *card = [self.game cardAtIndex:cardViewIndex];
         
-//        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-        [cardButton setAttributedTitle:[self titleForCard:card] forState:UIControlStateNormal];
-//        [[cardButton titleLabel] setAttributedText:[self titleForCard:card]];
-        [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-        cardButton.enabled = !card.isMatched;
+        cardView.chosen = card.isChosen;
+        cardView.hidden = card.isMatched;
+        
 
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", (long)self.game.score];
-    [self.view setNeedsLayout];
+//    [self.view setNeedsLayout];
 //    if(self.game.matchMode==2)
 //    {
 //        [self.matchModeSwitch setSelectedSegmentIndex:0];
@@ -83,6 +106,20 @@
 //    }
 }
 
+
+
+- (void) drawCardView:(CardView*) cardView atIndex:(NSUInteger) i{
+    NSUInteger column = i / self.grid.rowCount;
+    NSUInteger row = i % self.grid.rowCount;
+    [cardView setFrame:[self.grid frameOfCellAtRow:row inColumn:column]];
+
+    [cardView setBackgroundColor:[UIColor clearColor]];
+    [self.gridFrame addSubview:cardView];
+    [cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(tapCardView:)]];
+//    [cardView setUserInteractionEnabled:YES];
+    [self.cardViews addObject:cardView];
+//    [cardView setNeedsDisplay];
+}
 
 - (IBAction)touchRedealButton:(UIButton *)sender {
     self.game = [self createGame];

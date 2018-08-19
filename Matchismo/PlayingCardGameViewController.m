@@ -7,8 +7,12 @@
 //
 
 #import "PlayingCardGameViewController.h"
-#import "PlayingCardDeck.h"
+
 #import <UIKit/UIKit.h>
+
+#import "PlayingCardDeck.h"
+#import "PlayingCard.h"
+#import "PlayingCardView.h"
 
 @interface PlayingCardGameViewController ()
 
@@ -16,9 +20,6 @@
 
 @implementation PlayingCardGameViewController
 
--(NSString*) historySegueIdentifier{
-    return @"playingCardHistory";
-}
 
 
 - (Deck *)createDeck
@@ -33,22 +34,17 @@
 }
 
 
--(NSAttributedString *) titleForCard:(Card *)card
-{
-    return [[NSAttributedString alloc] initWithString:(card.isChosen ? card.contents : @"") attributes:
-            @{NSFontAttributeName: [UIFont systemFontOfSize:15.0]}];
-}
-
--(UIImage *)backgroundImageForCard:(Card *)card
-{
-    return [UIImage imageNamed:card.isChosen ? @"cardfront": @"cardback"];
-}
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    for(int i=0; i<[PlayingCardGameViewController cardsCount];i++){
+        PlayingCard * card =  (PlayingCard *)[self.game cardAtIndex:i];
+        PlayingCardView * cardView = [[PlayingCardView alloc] init];
+        cardView.rank = card.rank;
+        cardView.suit = card.suit;
+//        cardView.faceUp = NO;
+        [self drawCardView:cardView atIndex:i];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
