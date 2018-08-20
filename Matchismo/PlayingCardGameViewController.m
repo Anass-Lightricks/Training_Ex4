@@ -41,6 +41,38 @@
     return cardView;
 }
 
+#define FLIP_ANIMATION_DURATION 0.5
+
+-(void)updateUI
+{
+    [super updateUI];
+    for (CardView *cardView in self.cardViews){
+        NSUInteger cardViewIndex = [self.cardViews indexOfObject:cardView];
+        Card *card = [self.game cardAtIndex:cardViewIndex];
+        
+        cardView.matched = card.isMatched;
+        
+        if (cardView.isChosen != card.isChosen){
+            UIViewAnimationOptions animationOption = (card.isChosen == YES) ?UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionFlipFromRight;
+            
+            [UIView transitionWithView:cardView duration:FLIP_ANIMATION_DURATION options: animationOption animations:^{
+                cardView.chosen = card.isChosen;
+                [cardView setNeedsDisplay];
+            } completion:^(BOOL fin){
+                if(fin && card.isMatched){
+                    [self removeMatchedFromGame];
+                }
+            }
+             ];
+        }
+    }
+        
+    
+    
+}
+
+
+
 //- (void)viewDidLoad {
 //    [super viewDidLoad];
 //    // Do any additional setup after loading the view.

@@ -11,6 +11,9 @@
 @interface CardView : UIView
 
 @property (nonatomic,getter=isChosen) BOOL chosen;
+@property (nonatomic, getter=isMatched) BOOL matched;
+
+
 
 //protected
 - (CGFloat) cornerScaleFactor;

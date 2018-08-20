@@ -42,16 +42,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fyS-5D-5dF">
+                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fyS-5D-5dF">
                                 <rect key="frame" x="16" y="20" width="288" height="349"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Lkz-PE-vza" appends="YES" id="eg5-vj-68W"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJZ-cf-Egj">
                                 <rect key="frame" x="240" y="473" width="60" height="36"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="Op2-fd-0Jf"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="Op2-fd-0Jf"/>
                                     <constraint firstAttribute="height" constant="36" id="xfA-cK-sgQ"/>
                                 </constraints>
                                 <state key="normal" title="ReDeal">
@@ -65,7 +69,9 @@
                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HJZ-cf-Egj" secondAttribute="bottom" constant="10" id="1Mo-JQ-6C6"/>
+                            <constraint firstItem="HJZ-cf-Egj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="CfB-cY-i7w"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HJz-ys-HzN" secondAttribute="bottom" constant="17" id="szg-kA-w8j"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HJz-ys-HzN" secondAttribute="trailing" constant="20" symbolic="YES" id="u16-bm-noQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HJZ-cf-Egj" secondAttribute="trailing" constant="20" id="wdC-nA-EM4"/>
                             <constraint firstItem="HJz-ys-HzN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="zer-vM-YnI"/>
                         </constraints>
@@ -79,6 +85,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="Lkz-PE-vza">
+                    <connections>
+                        <action selector="pinch:" destination="BYZ-38-t0r" id="kaY-Sa-aR1"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1072.5" y="-302.11267605633805"/>
         </scene>
@@ -100,7 +111,7 @@
                                 <rect key="frame" x="240" y="473" width="60" height="36"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="NYp-dK-SUT"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="NYp-dK-SUT"/>
                                     <constraint firstAttribute="height" constant="36" id="RhY-FG-vNv"/>
                                 </constraints>
                                 <state key="normal" title="ReDeal">
@@ -110,18 +121,44 @@
                                     <action selector="touchRedealButton:" destination="n8A-AT-pkt" eventType="touchUpInside" id="SNC-XS-baD"/>
                                 </connections>
                             </button>
-                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lde-wf-DV9">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JO8-TJ-TyO">
+                                <rect key="frame" x="110" y="411" width="100" height="35"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="ukI-Bn-s4I"/>
+                                </constraints>
+                                <state key="normal" title="More Cards">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="TapMoreCards:" destination="n8A-AT-pkt" eventType="touchUpInside" id="Esx-bW-Bxh"/>
+                                </connections>
+                            </button>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lde-wf-DV9">
                                 <rect key="frame" x="16" y="20" width="288" height="349"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="1xo-1P-NHF" appends="YES" id="dhu-sf-DX6"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Lde-wf-DV9" secondAttribute="bottom" constant="199" id="3Uj-5R-BB7"/>
                             <constraint firstItem="UHa-tJ-s4c" firstAttribute="leading" secondItem="5di-pj-Npd" secondAttribute="leading" constant="16" id="5w6-sR-N9t"/>
+                            <constraint firstItem="JO8-TJ-TyO" firstAttribute="leading" secondItem="5di-pj-Npd" secondAttribute="leading" constant="110" id="OWz-RG-R4u"/>
+                            <constraint firstItem="Lde-wf-DV9" firstAttribute="top" secondItem="5di-pj-Npd" secondAttribute="top" id="Skc-fu-JVK"/>
+                            <constraint firstItem="UHa-tJ-s4c" firstAttribute="leading" secondItem="5di-pj-Npd" secondAttribute="leading" constant="16" id="Tzf-rk-lwO"/>
                             <constraint firstItem="5di-pj-Npd" firstAttribute="trailing" secondItem="AJe-8V-M0n" secondAttribute="trailing" constant="20" id="Y9f-Cc-gVP"/>
                             <constraint firstAttribute="bottom" secondItem="UHa-tJ-s4c" secondAttribute="bottom" constant="66" id="bAo-RM-KdL"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UHa-tJ-s4c" secondAttribute="trailing" constant="20" symbolic="YES" id="e14-oc-18A"/>
                             <constraint firstItem="5di-pj-Npd" firstAttribute="bottom" secondItem="AJe-8V-M0n" secondAttribute="bottom" constant="10" id="fh4-A6-F3C"/>
+                            <constraint firstItem="JO8-TJ-TyO" firstAttribute="centerX" secondItem="Zs8-Xy-mfn" secondAttribute="centerX" id="oL6-7w-RCb"/>
+                            <constraint firstItem="AJe-8V-M0n" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zs8-Xy-mfn" secondAttribute="leading" constant="20" symbolic="YES" id="ole-Qe-EFS"/>
+                            <constraint firstItem="Lde-wf-DV9" firstAttribute="leading" secondItem="UHa-tJ-s4c" secondAttribute="leading" id="wc2-HI-9qT"/>
+                            <constraint firstItem="JO8-TJ-TyO" firstAttribute="top" secondItem="Lde-wf-DV9" secondAttribute="bottom" constant="42" id="zFh-6d-4JH"/>
+                            <constraint firstItem="Lde-wf-DV9" firstAttribute="centerX" secondItem="JO8-TJ-TyO" secondAttribute="centerX" id="zLT-cJ-whE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5di-pj-Npd"/>
                     </view>
@@ -129,12 +166,18 @@
                     <navigationItem key="navigationItem" title="Set Card Game" id="8qA-kw-nsi"/>
                     <connections>
                         <outlet property="gridFrame" destination="Lde-wf-DV9" id="18T-8Z-Fqv"/>
+                        <outlet property="moreCardsButton" destination="JO8-TJ-TyO" id="bI7-si-hHR"/>
                         <outlet property="scoreLabel" destination="UHa-tJ-s4c" id="QDK-EX-RG6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QD6-52-sOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="1xo-1P-NHF">
+                    <connections>
+                        <action selector="pinch:" destination="n8A-AT-pkt" id="YAP-ny-2yL"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1074" y="404"/>
+            <point key="canvasLocation" x="1072.5" y="403.52112676056339"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="o9Z-Vn-8Y3">

@@ -12,6 +12,7 @@
 @interface CardMatchingGame()
 @property (nonatomic,readwrite) NSInteger score;
 @property (nonatomic,strong)NSMutableArray *cards;
+@property (nonatomic,strong) Deck* deck;
 @end
 
 @implementation CardMatchingGame
@@ -21,10 +22,14 @@
     if (!_cards) _cards = [[NSMutableArray alloc] init];
     return _cards;
 }
+
+
+
 -(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
 {
     self = [super init];
     if (self) {
+        self.deck= deck;
         for (int i=0;i<count;i++){
             Card *card = [deck drawRandomCard];
             if(card){
@@ -65,6 +70,18 @@ static const int DEFAULT_MATCH_MODE =2;
     if(matchMode == 2 || matchMode ==3){
         _matchMode = matchMode;
     }
+}
+
+- (Card*) addCard{
+    Card *card = [self.deck drawRandomCard];
+    if(card){
+        [self.cards addObject:card];
+    }
+    return card;
+}
+
+- (void) removeCardAtIndex:(NSUInteger) index{
+    [self.cards removeObjectAtIndex:index];
 }
 
 - (void)chooseCardAtIndex:(NSUInteger)index{

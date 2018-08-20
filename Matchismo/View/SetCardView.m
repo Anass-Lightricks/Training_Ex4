@@ -63,7 +63,8 @@
      
      if(self.isChosen){
         UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:[self cornerRaduis]];
-         roundedRect.lineWidth = rect.size.width / 30.0;
+//         roundedRect.lineWidth = rect.size.width / 15.0;
+         roundedRect.lineWidth = 5;
         [[UIColor blackColor] setStroke];
         [roundedRect stroke];
      }

@@ -24,7 +24,7 @@
 @synthesize faceCardScaleFactor = _faceCardScaleFactor;
 #define DEFAULT_FACE_CARD_SCALE_FACTOR 0.90
 
-
+@synthesize chosen = _chosen;
 
 -(CGFloat) faceCardScaleFactor
 {
@@ -46,6 +46,27 @@
     _rank = rank;
     [self setNeedsDisplay];
 }
+
+#define FLIP_ANIMATION_DURATION 0.5
+
+- (void)setChosen:(BOOL)chosen :(NSArray*) context{
+//    if (_chosen != chosen){
+//        UIViewAnimationOptions animationOption = (chosen == YES) ?UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionFlipFromRight;
+//
+//        [UIView transitionWithView:self duration:FLIP_ANIMATION_DURATION options: animationOption animations:^{
+            _chosen = chosen;
+            [self setNeedsDisplay];
+//        } completion:^(BOOL fin){
+//            if(fin && self.isMatched){
+//                [self removeFromGame];
+//            }
+//        }
+//         ];
+//    }
+}
+
+
+
 
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture{

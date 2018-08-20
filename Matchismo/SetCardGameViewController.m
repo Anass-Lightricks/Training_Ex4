@@ -14,17 +14,24 @@
 
 
 @interface SetCardGameViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *moreCardsButton;
 
 @end
 
 @implementation SetCardGameViewController
 
+@synthesize cardsCount = _cardsCount;
+
+- (NSUInteger) cardsCount{
+    return _cardsCount;
+}
 
 -(Deck *)createDeck{
     return [[SetCardDeck alloc]init];
 }
 
 -(CardMatchingGame *)createGame{
+    self.cardsCount = 12;
     CardMatchingGame* game = [super createGame];
     game.matchMode =3;
     return game;
@@ -40,14 +47,23 @@
     return cardView;
 }
 
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
-//    // Do any additional setup after loading the view.
-//}
+- (void)viewDidLoad {
+//    self.cardsCount= 12;
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
 
 -(void)updateUI
 {
     [super updateUI];
+    for (CardView *cardView in self.cardViews){
+        NSUInteger cardViewIndex = [self.cardViews indexOfObject:cardView];
+        Card *card = [self.game cardAtIndex:cardViewIndex];
+        
+         cardView.chosen = card.isChosen;
+         cardView.matched = card.isMatched;
+         }
+    [self removeMatchedFromGame];
 //    for (UIButton *cardButton in self.cardViews){
 //        NSUInteger cardButtonIndex = [self.cardViews indexOfObject:cardButton];
 //        Card *card = [self.game cardAtIndex:cardButtonIndex];
@@ -63,6 +79,30 @@
 //    }
 }
 
+#define CARDS_TO_ADD_AT_A_TIME 3
+
+- (IBAction)TapMoreCards:(UIButton *)sender {
+    NSUInteger oldCount = self.cardsCount;
+    self.cardsCount += CARDS_TO_ADD_AT_A_TIME;
+    [self setGridBounds];
+    for(int i = 0; i<self.cardsCount;i++){
+        if(i>=oldCount){
+            Card* newCard = [self.game addCard];
+            if(newCard){
+                [self dealCard:newCard];
+            }else{
+                self.moreCardsButton.hidden = YES;
+                break;
+            }
+        }
+        [self drawCardView:self.cardViews[i] atIndex:i];
+    }
+}
+
+- (IBAction)touchRedealButton:(UIButton *)sender{
+    self.moreCardsButton.hidden = NO;
+    [super touchRedealButton:sender];
+}
 
 
 - (void)didReceiveMemoryWarning {

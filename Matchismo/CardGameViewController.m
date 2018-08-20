@@ -24,8 +24,52 @@
 
 @implementation CardGameViewController
 
-- (NSUInteger) cardsCount{
+#define PINCH_ANIMATION_DURATION 0.5
+
+- (IBAction)pinch:(UIPinchGestureRecognizer *)sender {
+    for(CardView* cardView in self.cardViews)
+    {
+        [UIView transitionWithView:cardView duration:PINCH_ANIMATION_DURATION options: UIViewAnimationOptionCurveEaseInOut animations:^{
+            cardView.center = self.gridFrame.center;
+        } completion:^(BOOL fin){
+            if(fin){
+                [cardView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)]];
+                [cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCardInStack:)]];
+            }
+        }
+         ];
+        
+    }
+}
+
+ - (IBAction)pan:(UIPanGestureRecognizer *)sender{
+     for(CardView* cardView in self.cardViews)
+     {
+         cardView.center = [sender locationInView:self.gridFrame];
+     }
+ }
+
+
+- (IBAction)tapCardInStack:(UIPanGestureRecognizer *)sender{
+    [self reDrawCards];
+    for(CardView* cardView in self.cardViews){
+        for( UIGestureRecognizer* gesture in cardView.gestureRecognizers)
+        {
+            if(![gesture isKindOfClass: UIPinchGestureRecognizer.class])
+            {
+                [cardView removeGestureRecognizer:gesture];
+            }
+        }
+    }
+}
+
+
+-( NSUInteger) defaultCardsCount{
     return 12;
+}
+
+- (NSUInteger) cardsCount{
+    return _cardsCount;
 }
 
 - (CardView *)createCardViewForCard:(Card *)card{
@@ -43,7 +87,7 @@
 - (void) setGridBounds{
     self.grid.size = self.gridFrame.bounds.size;
     self.grid.cellAspectRatio =  64.0/96.0;
-    self.grid.minimumNumberOfCells = [self cardsCount];
+    self.grid.minimumNumberOfCells = self.cardsCount;
 }
 
 - (Grid *)grid{
@@ -61,6 +105,7 @@
 
 -(CardMatchingGame *) createGame
 {
+    _cardsCount = [self defaultCardsCount];
     CardMatchingGame *game = [[CardMatchingGame alloc] initWithCardCount:[self cardsCount] usingDeck:[self createDeck]];
     return game;
 }
@@ -81,33 +126,76 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _game = [self createGame];
     [self setGridBounds];
 
-    [self updateUI];
-    for(int i=0; i<[self cardsCount];i++){
-        Card * card = [self.game cardAtIndex:i];
-        CardView * cardView = [self createCardViewForCard:card];
-        [self drawCardView:cardView atIndex:i];
-        [cardView setBackgroundColor:[UIColor clearColor]];
-        //    [cardView setUserInteractionEnabled:YES];
-        [self.cardViews addObject:cardView];
-        //    [cardView setNeedsDisplay];
-    }
+//    [self updateUI];
+    [self dealAndDrawCards];
     
     
 }
 
-
-
--(void)updateUI
-{
-    for (CardView *cardView in self.cardViews){
-        NSUInteger cardViewIndex = [self.cardViews indexOfObject:cardView];
-        Card *card = [self.game cardAtIndex:cardViewIndex];
-        
-        cardView.chosen = card.isChosen;
-        cardView.hidden = card.isMatched;
+-(void) dealAndDrawCards{
+    for(int i=0; i<[self cardsCount];i++){
+        [self drawCardView:[self dealCard:[self.game cardAtIndex:i]] atIndex:i];
     }
+}
+-(CardView *) dealCard: (Card*)card{
+    CardView * cardView = [self createCardViewForCard:card];
+    
+    [self.gridFrame addSubview:cardView];
+    [cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(tapCardView:)]];
+    [cardView setBackgroundColor:[UIColor clearColor]];
+    //    [cardView setUserInteractionEnabled:YES];
+    [self.cardViews addObject:cardView];
+    //    [cardView setNeedsDisplay];
+    return cardView;
+}
+
+-(void)removeAllFromGame{
+    for (CardView *cardView in [self.cardViews copy]){
+        [self removeFromGameCardView:cardView];
+    }
+}
+
+-(void)removeMatchedFromGame{
+    for (CardView *cardView in [self.cardViews copy]){
+        if(cardView.matched){
+            cardView.matched = NO;
+            [self removeFromGameCardView:cardView];
+        }
+    }
+    [self reDrawCards];
+}
+#define REMOVE_ANIMATION_DURATION 0.5
+
+-(void)removeFromGameCardView:(CardView*) cardView{
+    NSUInteger index = [self.cardViews indexOfObject:cardView];
+    [self.game removeCardAtIndex:index];
+    [self.cardViews removeObject:cardView];
+    [cardView removeGestureRecognizer:[cardView.gestureRecognizers objectAtIndex:0]];
+    self.cardsCount--;
+    [UIView transitionWithView:cardView duration:REMOVE_ANIMATION_DURATION options: UIViewAnimationOptionCurveEaseInOut animations:^{
+        cardView.center = CGPointMake(self.gridFrame.bounds.size.width+ cardView.bounds.size.width, -cardView.bounds.size.height);
+    } completion:^(BOOL fin){
+        if(fin){
+            [cardView removeFromSuperview];
+//            [self updateUI];
+        }
+    }
+     ];
+}
+
+
+-(void) updateUI
+{
+//    for (CardView *cardView in self.cardViews){
+//        NSUInteger cardViewIndex = [self.cardViews indexOfObject:cardView];
+//        Card *card = [self.game cardAtIndex:cardViewIndex];
+//        
+//        cardView.chosen = card.isChosen;
+//        cardView.matched = card.isMatched;
+//    }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", (long)self.game.score];
 //    [self.view setNeedsLayout];
 //    if(self.game.matchMode==2)
@@ -118,38 +206,52 @@
 //    }
 }
 
-
+#define ADD_ANIMATION_DURATION 0.5
 
 - (void) drawCardView:(CardView*) cardView atIndex:(NSUInteger) i{
-    NSUInteger column = i / self.grid.rowCount;
-    NSUInteger row = i % self.grid.rowCount;
-    [cardView setFrame:[self.grid frameOfCellAtRow:row inColumn:column]];
-    [self.gridFrame addSubview:cardView];
-    [cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(tapCardView:)]];
+    NSUInteger column = i % self.grid.columnCount;
+    NSUInteger row = i / self.grid.columnCount;
+    
+    [UIView transitionWithView:cardView duration:ADD_ANIMATION_DURATION options: UIViewAnimationOptionCurveEaseInOut animations:^{
+        [cardView setFrame:[self.grid frameOfCellAtRow:row inColumn:column]];
+    } completion:^(BOOL fin){
+        if(fin){
+            [cardView setNeedsDisplay];
+//            [cardView removeFromSuperview];
+            //            [self.cardViews removeObject:cardView];
+        }
+    }
+     ];
+
 }
 
 - (IBAction)touchRedealButton:(UIButton *)sender {
+    [self removeAllFromGame];
     self.game = [self createGame];
-    [self updateUI];
-}
-//- (IBAction)TouchMatchModeControl:(UISegmentedControl *)sender {
-//    if(sender.selectedSegmentIndex ==0)
-//    {
-//        [self.game setMatchMode:2];
-//    }else{
-//        [self.game setMatchMode:3];
-//    }
-//}
+    [self setGridBounds];
 
-- (void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
+    [self dealAndDrawCards];
+    [self updateUI];
+//    [self updateUI];
+}
+
+
+//- (void)viewWillLayoutSubviews{
+//    [self reDrawCards];
+//}
+- (void)viewDidLayoutSubviews{
+    [self reDrawCards];
+}
+
+-(void)reDrawCards{
     [self setGridBounds];
     
     for(int i=0; i<[self.cardViews count];i++){
         [self drawCardView:self.cardViews[i] atIndex:i];
     }
-    
 }
+
+
 
 
 
