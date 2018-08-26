@@ -27,7 +27,7 @@
 }
 
 -(Deck *)createDeck{
-    return [[SetCardDeck alloc]init];
+    return [[SetCardDeck alloc] init];
 }
 
 -(CardMatchingGame *)createGame{
@@ -48,7 +48,6 @@
 }
 
 - (void)viewDidLoad {
-//    self.cardsCount= 12;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
@@ -62,21 +61,8 @@
         
          cardView.chosen = card.isChosen;
          cardView.matched = card.isMatched;
-         }
+    }
     [self removeMatchedFromGame];
-//    for (UIButton *cardButton in self.cardViews){
-//        NSUInteger cardButtonIndex = [self.cardViews indexOfObject:cardButton];
-//        Card *card = [self.game cardAtIndex:cardButtonIndex];
-//
-//        if (card.isChosen && !card.isMatched){
-//            cardButton.layer.borderWidth = 1.5f;
-//            cardButton.layer.borderColor = [UIColor blackColor].CGColor;
-//            cardButton.layer.cornerRadius = 6.5f;
-//        }else
-//        {
-//            cardButton.layer.borderWidth = 0;
-//        }
-//    }
 }
 
 #define CARDS_TO_ADD_AT_A_TIME 3
@@ -105,10 +91,10 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+//- (void)didReceiveMemoryWarning {
+//    [super didReceiveMemoryWarning];
+//    // Dispose of any resources that can be recreated.
+//}
 
 
 /*

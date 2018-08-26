@@ -24,13 +24,19 @@
 
 @implementation CardGameViewController
 
+-(CGPoint) movePoint:(CGPoint)point byX:(NSUInteger)x byY: (NSUInteger) y{
+    return CGPointMake(point.x+x, point.y+y);
+}
+
+
 #define PINCH_ANIMATION_DURATION 0.5
 
 - (IBAction)pinch:(UIPinchGestureRecognizer *)sender {
-    for(CardView* cardView in self.cardViews)
+    for(int i=0;i<self.cardsCount;i++)
     {
+        CardView* cardView = self.cardViews[i];
         [UIView transitionWithView:cardView duration:PINCH_ANIMATION_DURATION options: UIViewAnimationOptionCurveEaseInOut animations:^{
-            cardView.center = self.gridFrame.center;
+            cardView.center = [self movePoint:self.gridFrame.center byX:i byY:i];
         } completion:^(BOOL fin){
             if(fin){
                 [cardView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)]];
@@ -43,9 +49,11 @@
 }
 
  - (IBAction)pan:(UIPanGestureRecognizer *)sender{
-     for(CardView* cardView in self.cardViews)
+     for(int i=0;i<self.cardsCount;i++)
      {
-         cardView.center = [sender locationInView:self.gridFrame];
+         CardView* cardView = self.cardViews[i];
+         cardView.center = [self movePoint:[sender locationInView:self.gridFrame] byX:i byY:i];
+         
      }
  }
 
@@ -60,6 +68,7 @@
                 [cardView removeGestureRecognizer:gesture];
             }
         }
+        [cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCardView:)]];
     }
 }
 
@@ -129,7 +138,6 @@
     _game = [self createGame];
     [self setGridBounds];
 
-//    [self updateUI];
     [self dealAndDrawCards];
     
     
@@ -146,9 +154,7 @@
     [self.gridFrame addSubview:cardView];
     [cardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(tapCardView:)]];
     [cardView setBackgroundColor:[UIColor clearColor]];
-    //    [cardView setUserInteractionEnabled:YES];
     [self.cardViews addObject:cardView];
-    //    [cardView setNeedsDisplay];
     return cardView;
 }
 
@@ -180,7 +186,6 @@
     } completion:^(BOOL fin){
         if(fin){
             [cardView removeFromSuperview];
-//            [self updateUI];
         }
     }
      ];
@@ -189,21 +194,7 @@
 
 -(void) updateUI
 {
-//    for (CardView *cardView in self.cardViews){
-//        NSUInteger cardViewIndex = [self.cardViews indexOfObject:cardView];
-//        Card *card = [self.game cardAtIndex:cardViewIndex];
-//        
-//        cardView.chosen = card.isChosen;
-//        cardView.matched = card.isMatched;
-//    }
-    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", (long)self.game.score];
-//    [self.view setNeedsLayout];
-//    if(self.game.matchMode==2)
-//    {
-//        [self.matchModeSwitch setSelectedSegmentIndex:0];
-//    }else{
-//        [self.matchModeSwitch setSelectedSegmentIndex:1];
-//    }
+self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", (long)self.game.score];
 }
 
 #define ADD_ANIMATION_DURATION 0.5
@@ -217,8 +208,6 @@
     } completion:^(BOOL fin){
         if(fin){
             [cardView setNeedsDisplay];
-//            [cardView removeFromSuperview];
-            //            [self.cardViews removeObject:cardView];
         }
     }
      ];
@@ -232,13 +221,8 @@
 
     [self dealAndDrawCards];
     [self updateUI];
-//    [self updateUI];
 }
 
-
-//- (void)viewWillLayoutSubviews{
-//    [self reDrawCards];
-//}
 - (void)viewDidLayoutSubviews{
     [self reDrawCards];
 }

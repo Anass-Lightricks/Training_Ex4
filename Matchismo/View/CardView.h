@@ -15,6 +15,7 @@
 
 
 
+
 //protected
 - (CGFloat) cornerScaleFactor;
 - (CGFloat) cornerRaduis;

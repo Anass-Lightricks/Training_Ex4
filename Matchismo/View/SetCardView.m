@@ -49,8 +49,6 @@
  // An empty implementation adversely affects performance during animation.
  - (void)drawRect:(CGRect)rect {
      [super drawRect:rect];
-//     CGContextRef context = UIGraphicsGetCurrentContext();
-     
      
      for(NSValue* rectValue in [self make:self.number RectsInRect:rect]){
          CGRect rect = [rectValue CGRectValue];

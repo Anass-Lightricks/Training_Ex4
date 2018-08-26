@@ -16,9 +16,6 @@
 @implementation PlayingCardView
 
 
-
-
-
 #pragma mark - Properties
 
 @synthesize faceCardScaleFactor = _faceCardScaleFactor;
@@ -50,23 +47,9 @@
 #define FLIP_ANIMATION_DURATION 0.5
 
 - (void)setChosen:(BOOL)chosen :(NSArray*) context{
-//    if (_chosen != chosen){
-//        UIViewAnimationOptions animationOption = (chosen == YES) ?UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionFlipFromRight;
-//
-//        [UIView transitionWithView:self duration:FLIP_ANIMATION_DURATION options: animationOption animations:^{
-            _chosen = chosen;
-            [self setNeedsDisplay];
-//        } completion:^(BOOL fin){
-//            if(fin && self.isMatched){
-//                [self removeFromGame];
-//            }
-//        }
-//         ];
-//    }
+    _chosen = chosen;
+    [self setNeedsDisplay];
 }
-
-
-
 
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture{

@@ -179,39 +179,5 @@
             </objects>
             <point key="canvasLocation" x="1072.5" y="403.52112676056339"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="o9Z-Vn-8Y3">
-            <objects>
-                <viewController id="31q-Ge-06U" customClass="ViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="xNs-Cw-riO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ojs-Wd-QsR" customClass="SetCardView">
-                                <rect key="frame" x="84" y="162" width="153" height="244"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="7yp-kw-11B" appends="YES" id="mDQ-DN-6ff"/>
-                                </connections>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="smr-9H-0As"/>
-                    </view>
-                    <connections>
-                        <outlet property="setCardView" destination="Ojs-Wd-QsR" id="EJl-WZ-hhb"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Byg-dg-DFF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="7yp-kw-11B">
-                    <connections>
-                        <action selector="swipe:" destination="31q-Ge-06U" id="T1N-Pc-WHQ"/>
-                    </connections>
-                </swipeGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="2752.5" y="-169.01408450704224"/>
-        </scene>
     </scenes>
 </document>
